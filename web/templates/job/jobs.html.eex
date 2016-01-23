@@ -1,0 +1,3 @@
+<div class="jumbotron">
+  <h2>Jobs on the <%= @cluster %> cluster</h2>
+</div>
