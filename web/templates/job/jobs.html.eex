@@ -11,10 +11,12 @@
       </tr>
     </thead>
     <tbody>
+      <%= for job <- @jobs do %>
       <tr>
-        <td>JOB1</td>
+        <td><%= job %></td>
         <td>JOB-INFO</td>
       </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

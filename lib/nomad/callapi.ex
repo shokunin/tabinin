@@ -18,7 +18,7 @@ defmodule Nomad.CallApi do
     "#{cluster_address}#{path}"
   end
 
-  def handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}), do: {:ok, :jsx.decode(body)}
+  def handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}), do: {:ok, Poison.Parser.parse!(body)}
 
   def handle_response({:error, %HTTPoison.Error{reason: error}}), do: {:error, error}
 
