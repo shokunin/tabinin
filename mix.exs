@@ -37,7 +37,7 @@ defmodule Tabinin.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:httpoison, "~> 0.8.1"},
-     {:jsx, "~> 2.8.0"},
+     {:poison, "~> 1.3"},
      {:cowboy, "~> 1.0"}]
   end
 
