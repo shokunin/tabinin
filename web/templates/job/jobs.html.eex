@@ -1,3 +1,20 @@
 <div class="jumbotron">
   <h2>Jobs on the <%= @cluster %> cluster</h2>
 </div>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Job Name</th>
+        <th>Information</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>JOB1</td>
+        <td>JOB-INFO</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
