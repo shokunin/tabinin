@@ -12,6 +12,7 @@ defmodule Nomad.Jobs do
 
   def get_job(cluster_address, jobname) do
     Nomad.CallApi.fetch(cluster_address, "/v1/job/#{jobname}")
+    |> check_call
   end
 
   def check_call({:ok, data}), do: data

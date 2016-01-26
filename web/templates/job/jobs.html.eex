@@ -7,14 +7,12 @@
     <thead>
       <tr>
         <th>Job Name</th>
-        <th>Information</th>
       </tr>
     </thead>
     <tbody>
       <%= for job <- @jobs do %>
       <tr>
-        <td><%= job %></td>
-        <td>JOB-INFO</td>
+        <td><a href="/jobs/<%= job %>" ><%= job %></a></td>
       </tr>
       <% end %>
     </tbody>
