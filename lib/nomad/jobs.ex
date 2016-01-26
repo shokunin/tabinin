@@ -6,13 +6,19 @@ defmodule Nomad.Jobs do
 
   def all_jobs(cluster_address) do
     Nomad.CallApi.fetch(cluster_address, '/v1/jobs')
-    #  |> jobs_to_list
+    |> check_call
+    |> map_element_to_list("ID")
   end
-
-  #def jobs_to_list ({:ok, data}),  do: {data} 
 
   def get_job(cluster_address, jobname) do
     Nomad.CallApi.fetch(cluster_address, "/v1/job/#{jobname}")
+  end
+
+  def check_call({:ok, data}), do: data
+
+  def map_element_to_list(data, field)
+  when is_list(data) do
+    for e <- data, into: [], do: Map.get(e, field)
   end
 
 

@@ -1,0 +1,24 @@
+<div class="jumbotron">
+  <h2>Nodes on the <%= @cluster %> cluster</h2>
+</div>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Node Name</th>
+        <th>Datacenter</th>
+        <th>Drain</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for node <- @nodes do %>
+      <tr>
+        <td><a href="/nodes/<%= node["ID"] %>"><%= node["Name"] %></a></td>
+        <td><%= node["Datacenter"] %></td>
+        <td><%= node["Drain"] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
