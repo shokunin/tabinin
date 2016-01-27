@@ -2,3 +2,56 @@
   <h2>Job: <%= @job["Name"] %></h2>
 </div>
 
+<div class="container">
+  <h3>Job Settings</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Setting</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for k <- ["Name", "Priority", "Type", "Datacenters", "Region"]  do %>
+      <tr>
+        <td><%= k %></td>
+        <td><%= @job[k] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="container">
+  <h3>Allocations</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>TaskGroup</th>
+        <th>Desired</th>
+        <th>Status</th>
+        <th>Node</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for alloc <- @allocs  do %>
+      <%= if alloc["DesiredStatus"] == "run" and alloc["ClientStatus"] == "running" do %>
+      <tr class="success">
+      <% else %>
+      <%= if alloc["DesiredStatus"] == "run" and alloc["ClientStatus"] != "running" do %>
+      <tr class="danger">
+      <% else %>
+      <tr class="info">
+      <% end %>
+      <% end %>
+        <td><%= alloc["TaskGroup"] %></td>
+        <td><%= alloc["DesiredStatus"] %></td>
+        <td><%= alloc["ClientStatus"] %></td>
+        <td><%= @nodes[alloc["NodeID"]] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

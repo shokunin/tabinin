@@ -7,14 +7,24 @@
     <thead>
       <tr>
         <th>Node Name</th>
+        <th>Status</th>
         <th>Datacenter</th>
         <th>Drain</th>
       </tr>
     </thead>
     <tbody>
       <%= for node <- @nodes do %>
-      <tr>
+      <%= if node["Status"] == "ready" and node["Drain"] == false do %>
+      <tr class="success">
+      <% else %>
+      <%= if node["Drain"] == true do %>
+      <tr class="warning">
+      <% else %>
+      <tr class="danger">
+      <% end %>
+      <% end %>
         <td><a href="/nodes/<%= node["ID"] %>"><%= node["Name"] %></a></td>
+        <td><%= node["Status"] %></td>
         <td><%= node["Datacenter"] %></td>
         <td><%= node["Drain"] %></td>
       </tr>

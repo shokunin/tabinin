@@ -8,7 +8,10 @@ defmodule Tabinin.JobController do
   end
 
   def list_job(conn, %{"job_id" => job_id}) do
-    render conn, "job_info.html", job: Nomad.Jobs.get_job(Application.get_env(:tabinin, Tabinin.Nomad)[:server], job_id)
+    render conn, "job_info.html", 
+      job: Nomad.Jobs.get_job(Application.get_env(:tabinin, Tabinin.Nomad)[:server], job_id),
+      nodes: Nomad.Nodes.node_map(Application.get_env(:tabinin, Tabinin.Nomad)[:server]),
+      allocs: Nomad.Alloc.allocs_by_job(Application.get_env(:tabinin, Tabinin.Nomad)[:server], job_id)
   end
 
 end
