@@ -30,6 +30,7 @@
             <li class="active"><a href="/">Top</a></li>
             <li><a href="/jobs">Jobs</a></li>
             <li><a href="/nodes">Nodes</a></li>
+            <li><a href="/servers">Servers</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

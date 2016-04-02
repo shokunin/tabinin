@@ -1,0 +1,32 @@
+<div class="jumbotron">
+  <h2>Servers on the <%= @cluster %> cluster</h2>
+</div>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Node Name</th>
+        <th>Status</th>
+        <th>Region</th>
+        <th>Datacenter</th>
+        <th>Version</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for node <- @nodes do %>
+      <%= if node["Status"] == "alive" do %>
+      <tr class="success">
+      <% else %>
+      <tr class="danger">
+      <% end %>
+        <td><%= node["Name"] %></td>
+        <td><%= node["Status"] %></td>
+        <td><%= node["Tags"]["region"] %></td>
+        <td><%= node["Tags"]["dc"] %></td>
+        <td><%= node["Tags"]["build"] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

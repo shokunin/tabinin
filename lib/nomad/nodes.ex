@@ -9,6 +9,12 @@ defmodule Nomad.Nodes do
     |> check_call
   end
 
+  def all_servers(cluster_address) do
+    Nomad.CallApi.fetch(cluster_address, '/v1/agent/members')
+    |> check_call
+    |> sort_list_of_maps("Name")
+  end
+
   def get_node(cluster_address, node_id) do
     Nomad.CallApi.fetch(cluster_address, "/v1/node/#{node_id}")
     |> check_call
@@ -33,7 +39,9 @@ defmodule Nomad.Nodes do
     for v <- data, into: %{}, do: {v["ID"], v["Name"]}
   end
 
-
-
+  def sort_list_of_maps(data, field )
+  when is_list(data) do
+    Enum.sort_by(data, &(Map.get(&1, field)), &>=/2)
+  end
 
 end
