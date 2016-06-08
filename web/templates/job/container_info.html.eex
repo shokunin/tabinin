@@ -18,19 +18,6 @@
     </table>
   </div>
 
-  <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-        <th>Environment: <%= task["Name"] %></th>
-      </thead>
-        <tbody>
-          <%= for { key, value } <- task["Env"] do %>
-            <tr> <td><%= key %></td> <td><%= value %></td> </tr>
-          <% end %>
-        </tbody>
-    </table>
-  </div>
 <% end %>
 <% end %>
 

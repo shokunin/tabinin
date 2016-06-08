@@ -14,8 +14,13 @@ defmodule Tabinin.JobController do
       allocs: Nomad.Alloc.allocs_by_job(Application.get_env(:tabinin, Tabinin.Nomad)[:server], job_id)
   end
 
-  def list_alloc(conn, %{"alloc_id" => alloc_id}) do
-    render conn, "alloc_info.html", 
+  def list_env(conn, %{"alloc_id" => alloc_id}) do
+    render conn, "env_info.html", 
+      alloc: Nomad.Alloc.get_alloc(Application.get_env(:tabinin, Tabinin.Nomad)[:server], alloc_id)
+  end
+
+  def list_container(conn, %{"alloc_id" => alloc_id}) do
+    render conn, "container_info.html", 
       alloc: Nomad.Alloc.get_alloc(Application.get_env(:tabinin, Tabinin.Nomad)[:server], alloc_id)
   end
 

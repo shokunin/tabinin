@@ -32,7 +32,8 @@
         <th>Desired</th>
         <th>Status</th>
         <th>Node</th>
-        <th>Details</th>
+        <th> </th>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
@@ -50,7 +51,8 @@
         <td><%= alloc["DesiredStatus"] %></td>
         <td><%= alloc["ClientStatus"] %></td>
         <td><%= @nodes[alloc["NodeID"]] %></td>
-        <td><a href="/allocs/<%= alloc["ID"] %>">Container Info</a></td>
+        <td><a href="/container/<%= alloc["ID"] %>">Container Info</a></td>
+        <td><a href="/env/<%= alloc["ID"] %>">Environment Info</a></td>
       </tr>
       <% end %>
     </tbody>

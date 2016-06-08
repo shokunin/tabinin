@@ -23,6 +23,8 @@ defmodule Tabinin.Router do
     get "/nodes/:node_id", NodeController, :list_node
     get "/jobs/:job_id", JobController, :list_job
     get "/allocs/:alloc_id", JobController, :list_alloc
+    get "/container/:alloc_id", JobController, :list_container
+    get "/env/:alloc_id", JobController, :list_env
   end
 
   # Other scopes may use custom stacks.
