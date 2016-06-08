@@ -15,6 +15,11 @@ defmodule Nomad.Alloc do
     |> sort_list_of_maps("ModifyIndex")
   end
 
+  def get_alloc(cluster_address, alloc_id) do
+    Nomad.CallApi.fetch(cluster_address, "/v1/allocation/#{alloc_id}")
+    |> check_call
+  end
+
   def check_call({:ok, data}), do: data
   
   def filter_map(data, field, val)

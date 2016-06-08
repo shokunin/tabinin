@@ -1,0 +1,61 @@
+<div class="jumbotron">
+  <h2>Job: <a href="/jobs/<%= @alloc["Job"]["Name"] %>"><%= @alloc["TaskGroup"] %></a></h2>
+</div>
+
+<%= for tg <- @alloc["Job"]["TaskGroups"] do %>
+  <%= for task <- tg["Tasks"] do %>
+
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+        <th>Driver: <%= task["Name"] %></th>
+      </thead>
+        <tbody>
+          <tr> <td>Driver</td> <td><%= task["Driver"] %></td> </tr>
+          <tr> <td>Image</td> <td><%= task["Config"]["image"] %></td> </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+        <th>Environment: <%= task["Name"] %></th>
+      </thead>
+        <tbody>
+          <%= for { key, value } <- task["Env"] do %>
+            <tr> <td><%= key %></td> <td><%= value %></td> </tr>
+          <% end %>
+        </tbody>
+    </table>
+  </div>
+<% end %>
+<% end %>
+
+<%= for { key, value } <- @alloc["TaskResources"] do %>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Resources: <%= key %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr> <td>CPU</td> <td><%= value["CPU"] %></td> </tr>
+      <tr> <td>MemoryMB</td> <td><%= value["MemoryMB"] %></td> </tr>
+      <tr> <td>DiskMB</td> <td><%= value["DiskMB"] %></td> </tr>
+      <tr> <td>IOPS</td> <td><%= value["IOPS"] %></td> </tr>
+      <%= for nw <- value["Networks"] do %>
+      <tr> <td>Device</td> <td><%= nw["Device"] %></td> </tr>
+      <%= unless is_nil nw["DynamicPorts"] do %>
+      <%= for ports <- nw["DynamicPorts"] do %>
+        <tr> <td>Port</td> <td><%= nw["IP"]%>:<%= ports["Value"] %></td> </tr>
+      <% end %>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
