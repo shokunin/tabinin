@@ -10,7 +10,7 @@ defmodule Tabinin do
       # Start the endpoint when the application starts
       supervisor(Tabinin.Endpoint, []),
       # Start the Ecto repository
-      supervisor(Tabinin.Repo, []),
+      # supervisor(Tabinin.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Tabinin.Worker, [arg1, arg2, arg3]),
     ]
