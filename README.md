@@ -4,20 +4,80 @@
 
 View jobs and information for [Nomad](http://nomadproject.io) clusters
 
-To start your Phoenix app:
+### Viewing all jobs
 
-  1. Install dependencies with `mix deps.get`
-  2. Copy config/nomad.exs.example to config/nomad.exs and edit
-  3. Start Phoenix endpoint with `mix phoenix.server`
+![Jobs View](https://github.com/shokunin/tabinin/blob/master/docs/jobs_all.png)
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+### Viewing a specific job
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+![Jobs View](https://github.com/shokunin/tabinin/blob/master/docs/job_example.png)
 
-## Learn more
+### Viewing all nodes
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: http://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+![Nodes View](https://github.com/shokunin/tabinin/blob/master/docs/nodes_all.png)
+
+### Viewing node information
+
+![Node View](https://github.com/shokunin/tabinin/blob/master/docs/node2.png)
+
+### Viewing cluster usage
+
+![Stats View](https://github.com/shokunin/tabinin/blob/master/docs/stats.png)
+
+## Running 
+
+To run as a nomad job:
+
+```
+job "tabinin" {
+  datacenters = ["testdc"]
+  type = "service"
+  update {
+    stagger = "10s"
+    max_parallel = 1
+  }
+  group "tabinin" {
+    count = 2
+    restart {
+      attempts = 10
+      interval = "5m"
+      delay = "25s"
+      mode = "delay"
+    }
+    task "tabinin" {
+      driver = "docker"
+      config {
+        image = "maguec/tabinin:latest"
+        force_pull = true
+        port_map {
+          tabinin = 4000
+        }
+      }
+      resources {
+        cpu    = 400 # 500 MHz
+        memory = 256 # 256MB
+        network {
+          mbits = 10
+          port "tabinin" {}
+        }
+      }
+      env {
+         NOMAD_API      = "http://nomad.service.testdc:4646"
+         NOMAD_CLUSTER  = "testdc"
+      }
+      service {
+        name = "tabinin"
+        tags = ["private-web-service"]
+        port = "tabinin"
+        check {
+          name     = "alive"
+          type     = "http"
+          path     = "/"
+          interval = "10s"
+          timeout  = "2s"
+        }
+      }
+    }
+  }
+}
+```
