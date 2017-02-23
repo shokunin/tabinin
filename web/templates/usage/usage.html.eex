@@ -1,0 +1,39 @@
+<div class="jumbotron">
+  <h2>Nodes Usage for <%= @cluster %> cluster</h2>
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Node</th>
+        <th>CPUs</th>
+        <th>CPU(Average)</th>
+        <th>CPU(Min)</th>
+        <th>CPU(Max)</th>
+        <th>Memory(Used)</th>
+        <th>NodeUptime(Hours)</th>
+        <th>Disks( Mount : % Used, %Inodes Used )</th>
+      </tr>
+    </thead>
+  <%= for {node, stats} <- @nodes do %>
+    <tr><td><%= node %></td>
+        <% cpus = Enum.map(stats["CPU"], fn(x) -> x["Total"] end ) %>
+        <td><%= length(cpus) %></td>
+        <td><%= Float.round((Enum.sum(cpus)/length(cpus)), 2) %>%</td>
+        <td><%= Float.round(Enum.min(cpus), 2) %>%</td>
+        <td><%= Float.round(Enum.max(cpus), 2) %>%</td>
+        <td><%= Float.round((stats["Memory"]["Used"]/stats["Memory"]["Total"])*100.0, 2) %>%</td>
+        <td><%= Float.round(stats["Uptime"]/3600, 2) %></td>
+        <td>
+          <%= for disk <- stats["DiskStats"] do %>
+            <%= disk["Mountpoint"] %> : <%= Float.round(disk["UsedPercent"], 2)%>% : <%= Float.round(disk["InodesUsedPercent"], 2) %>%<br>
+          <% end %>
+
+        </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+</div>

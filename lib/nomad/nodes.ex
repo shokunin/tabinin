@@ -32,6 +32,14 @@ defmodule Nomad.Nodes do
     |> filter_map
   end
 
+  def node_infos(cluster_address) do
+    all_nodes(cluster_address)
+    |> Enum.map(fn n -> {Map.get(n, "Name"), Map.get(n, "ID")} end )
+    |> Enum.map(fn {name, id} -> {name, get_node(cluster_address, id)["Attributes"]["unique.network.ip-address"]} end )
+    |> Enum.map(fn {name, ip} -> {name, Nomad.CallApi.fetch("http://#{ip}:4646", "/v1/client/stats")} end )
+    |> Enum.map(fn {name, z} -> {name, check_call(z)} end )
+  end
+
 
   def check_call({:ok, data}), do: data
   def check_call({:error, data}) do
