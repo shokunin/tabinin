@@ -1,4 +1,5 @@
 defmodule Nomad.Nodes do
+  require Logger
 
   @moduledoc """
   Get job information from the nomad cluster
@@ -12,7 +13,7 @@ defmodule Nomad.Nodes do
   def all_servers(cluster_address) do
     Nomad.CallApi.fetch(cluster_address, '/v1/agent/members')
     |> check_call
-    |> sort_list_of_maps("Name")
+    |> sort_results("Name")
   end
 
   def get_node(cluster_address, node_id) do
@@ -33,15 +34,23 @@ defmodule Nomad.Nodes do
 
 
   def check_call({:ok, data}), do: data
+  def check_call({:error, data}) do
+    Logger.error "ERROR: #{data}"
+  end
 
   def filter_map(data)
   when is_list(data) do
     for v <- data, into: %{}, do: {v["ID"], v["Name"]}
   end
 
-  def sort_list_of_maps(data, field )
+  def sort_results(data, field)
   when is_list(data) do
     Enum.sort_by(data, &(Map.get(&1, field)), &>=/2)
+  end
+
+  def sort_results(data, field)
+  when is_map(data) do
+    sort_results(data["Members"], "Name")
   end
 
 end
