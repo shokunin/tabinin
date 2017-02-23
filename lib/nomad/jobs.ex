@@ -1,4 +1,5 @@
 defmodule Nomad.Jobs do
+  require Logger
 
   @moduledoc """
   Get job information from the nomad cluster
@@ -16,6 +17,9 @@ defmodule Nomad.Jobs do
   end
 
   def check_call({:ok, data}), do: data
+  def check_call({:error, data}) do
+    Logger.error "ERROR: #{data}"
+  end
 
   def map_element_to_list(data, field)
   when is_list(data) do

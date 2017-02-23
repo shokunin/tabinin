@@ -11,10 +11,10 @@
       </tr>
     </thead>
     <tbody>
-      <%= for { k, v } <- @node["Attributes"] do %>
+      <%= for  k  <- Enum.sort(Enum.filter(Map.keys(@node["Attributes"]), fn(x) -> x != "os.signals" end)) do %>
       <tr>
         <td><%= k %></td>
-        <td><%= v %></td>
+        <td><%= @node["Attributes"][k] %></td>
       </tr>
       <% end %>
     </tbody>

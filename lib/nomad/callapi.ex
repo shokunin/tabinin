@@ -1,5 +1,7 @@
 defmodule Nomad.CallApi do
 
+  require Logger
+
   @moduledoc """
   Make the actual calls to the NomadAPI
   """
@@ -14,7 +16,7 @@ defmodule Nomad.CallApi do
   end
 
   def get_full_url(cluster_address, path) do
-    IO.puts "Fetching #{cluster_address}#{path}"
+    Logger.debug "Fetching #{cluster_address}#{path}"
     "#{cluster_address}#{path}"
   end
 
