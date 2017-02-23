@@ -24,7 +24,7 @@ View jobs and information for [Nomad](http://nomadproject.io) clusters
 
 ![Stats View](https://github.com/shokunin/tabinin/blob/master/docs/stats.png)
 
-### Viewing werver information
+### Viewing server information
 
 ![Node View](https://github.com/shokunin/tabinin/blob/master/docs/servers.png)
 
