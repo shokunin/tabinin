@@ -3,5 +3,18 @@
 </div>
 
 <div class="container">
-	Results: <%= inspect @res %>
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+      <td>Results</td>
+      <%= if elem(@res, 0) == :ok do %>
+      <td class="success">
+      <% else %>
+      <td class="danger">
+      <% end %>
+        <%= elem(@res, 1) %><td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>

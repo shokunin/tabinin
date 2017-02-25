@@ -16,6 +16,12 @@ defmodule Nomad.Nodes do
     |> sort_results("Name")
   end
 
+  def server_ip(server_ip, cluster_address) do
+    all_servers(cluster_address)
+    |> Enum.filter(fn(x) -> x["Addr"] == server_ip end )
+    |> Enum.at(0)
+  end
+
   def get_node(cluster_address, node_id) do
     Nomad.CallApi.fetch(cluster_address, "/v1/node/#{node_id}")
     |> check_call

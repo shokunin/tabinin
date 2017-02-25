@@ -3,6 +3,18 @@
 </div>
 
 <div class="container">
-  <br><br><a href="/admin/gc">Cleanup Nomad</a>
-  <br><br><a href="/admin/leader">Get CLuster Leader</a>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+  	<tr><td><a href="/admin/gc">Cleanup Nomad</a></td>
+	<td><p>Forces a garbage collection on the nomad cluster removing old jobs, nodes and stale allocations.  Safe to run at any time.</p></td></tr>
+  	<tr><td><a href="/admin/leader">Get CLuster Leader</a></td>
+	<td><p>Get the node name for the leader of the cluster.  Safe to run at any time</p></td></tr>
+    </tbody>
+  </table>
 </div>

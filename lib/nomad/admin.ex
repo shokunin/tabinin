@@ -11,6 +11,10 @@ defmodule Nomad.Admin do
 
   def leader(cluster_address) do
     Nomad.CallApi.fetch(cluster_address, "/v1/status/leader")
+    |> check_call
+    |> String.split(":")
+    |> Enum.at(0)
+    |> Nomad.Nodes.server_ip(cluster_address)
   end
 
   def check_call({:ok, data}), do: data
