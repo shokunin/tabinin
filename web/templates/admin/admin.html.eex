@@ -1,0 +1,8 @@
+<div class="jumbotron">
+  <h2>Admin <%= @cluster %> cluster</h2>
+</div>
+
+<div class="container">
+  <br><br><a href="/admin/gc">Cleanup Nomad</a>
+  <br><br><a href="/admin/leader">Get CLuster Leader</a>
+</div>

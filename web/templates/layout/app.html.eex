@@ -31,6 +31,7 @@
             <li><a href="/nodes">Nodes</a></li>
             <li><a href="/servers">Servers</a></li>
             <li><a href="/usage">Usage</a></li>
+            <li><a href="/admin">Admin</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

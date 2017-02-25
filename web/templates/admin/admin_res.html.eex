@@ -1,0 +1,7 @@
+<div class="jumbotron">
+	<h2>Admin results for <%= @admin_action %> on  <%= @cluster %> cluster</h2>
+</div>
+
+<div class="container">
+	Results: <%= inspect @res %>
+</div>

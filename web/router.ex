@@ -21,6 +21,9 @@ defmodule Tabinin.Router do
     get "/nodes", NodeController, :list_all
     get "/servers", NodeController, :list_servers
     get "/usage", UsageController, :show_usage
+    get "/admin", AdminController, :show_all
+    get "/admin/gc", AdminController, :gc
+    get "/admin/leader", AdminController, :get_leader
     get "/nodes/:node_id", NodeController, :list_node
     get "/jobs/:job_id", JobController, :list_job
     get "/container/:alloc_id", JobController, :list_container
