@@ -28,7 +28,8 @@ defmodule Tabinin.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.2"},
+    [{:phoenix, "~> 1.2.1"},
+     {:phoenix_ecto, "~> 3.0"},
      {:phoenix_html, "~> 2.6.2"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
